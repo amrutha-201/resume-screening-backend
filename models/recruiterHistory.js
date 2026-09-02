@@ -1,0 +1,32 @@
+const mongoose=require('mongoose');
+const recruiterSchema=mongoose.Schema({
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
+    },
+    domain:{
+        type:String,
+        required:true
+    },
+    description:{
+        type:String,
+        required:true
+    },
+    topAtsScore:{
+        type:Number,
+        required:true
+    },
+    results:{
+        type:Array,
+        required:true
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now
+    }
+},
+{
+    timeStamps:true
+})
+module.exports=mongoose.model('recruiterHistory',recruiterSchema)

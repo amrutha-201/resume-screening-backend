@@ -10,6 +10,10 @@ const jwt=require('jsonwebtoken');
 const auth=require('./middleware/auth');
 const pdfParse=require('pdf-parse');
 const fs=require('fs');
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
 const {GoogleGenerativeAI}=require('@google/generative-ai')
 require('dotenv').config();
 mongoose.connect(process.env.MONGO_URI)
@@ -29,7 +33,7 @@ const User=require('./models/user');
 const storage=multer.diskStorage(
     {
         destination:function(req,file,cb){
-            cb(null,'uploads/')
+            cb(null,uploadsDir)
         },
         filename:function(req,file,cb){
             cb(null,Date.now()+'-'+file.originalname)
